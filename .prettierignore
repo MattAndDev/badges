@@ -1,0 +1,7 @@
+*.js
+*.js.map
+.DS_Store
+.gitignore
+.prettierignore
+Dockerfile
+.dockerignore

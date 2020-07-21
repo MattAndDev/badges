@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "module": "CommonJS",
+    "target": "es2016",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "lib": ["ES2015", "ES2016", "ESNext", "dom"],
+    "baseUrl": "./"
+  },
+  "exclude": ["node_modules"]
+}

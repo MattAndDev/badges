@@ -1,0 +1,6 @@
+node_modules
+fonts
+compiled
+*.js
+dist
+.DS_Store

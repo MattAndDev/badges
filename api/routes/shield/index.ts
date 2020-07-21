@@ -1,0 +1,91 @@
+import { FastifyInstance, FastifyLoggerInstance } from 'fastify'
+import { Server, IncomingMessage, ServerResponse } from 'http'
+import { template } from './template'
+import { getWidth } from './get-width'
+import {
+  FontsMap,
+  fontFamilies,
+  getFontId,
+  decodeFontName,
+} from '../../../config'
+
+type Query = {
+  leftText?: string
+  rightText?: string
+  paddingHor?: string
+  paddingVer?: string
+  borderRadius?: string
+  leftBgColor?: string
+  rightBgColor?: string
+  leftTextColor?: string
+  rightTextColor?: string
+  fontFamily?: string
+  fontWeight?: string
+}
+
+const DEFAULT_VALUES: Required<Query> = {
+  leftText: 'THE',
+  rightText: 'SHIELD',
+  paddingHor: '12',
+  paddingVer: '8',
+  borderRadius: '3',
+  leftBgColor: '#18298C',
+  rightBgColor: '#04BF8A',
+  leftTextColor: '#F2CF1D',
+  rightTextColor: '#222',
+  fontFamily: 'Roboto',
+  fontWeight: '400',
+}
+
+export const shield = (
+  app: FastifyInstance<
+    Server,
+    IncomingMessage,
+    ServerResponse,
+    FastifyLoggerInstance
+  >,
+  fonts: FontsMap
+) => {
+  app.get<{
+    Querystring: Query
+  }>('/shield.svg', async (request, reply) => {
+    const {
+      leftText,
+      rightText,
+      paddingHor,
+      paddingVer,
+      fontFamily,
+      fontWeight,
+      ...rest
+    } = { ...DEFAULT_VALUES, ...request.query }
+    const padIntHor = parseInt(paddingHor, 10)
+    const padIntVer = parseInt(paddingVer, 10)
+    const fontSize = 20
+    const font = fontFamilies.find(
+      ({ name, weight }) =>
+        name === decodeFontName(fontFamily) &&
+        weight === parseInt(fontWeight, 10)
+    )!
+    const fontId = getFontId(font)
+    const leftTextWidth = getWidth(leftText, fontSize, fontId, fonts)
+    const rightTextWidth = getWidth(rightText, fontSize, fontId, fonts)
+
+    const totalWidth = leftTextWidth + rightTextWidth + padIntHor * 4
+    const totalHeight = fontSize * 1.4 + padIntVer * 2
+    reply.header('Content-type', 'image/svg+xml')
+    const svg = template({
+      totalHeight,
+      totalWidth,
+      font,
+      fontSize,
+      leftText,
+      leftTextWidth,
+      rightText,
+      rightTextWidth,
+      padHor: padIntHor,
+      padVer: padIntVer,
+      ...rest,
+    })
+    reply.send(svg)
+  })
+}

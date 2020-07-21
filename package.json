@@ -1,0 +1,31 @@
+{
+  "name": "badgy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:api": "nodemon --watch './api/**' -e .ts --exec 'ts-node' --dir api index.ts",
+    "compile:api": "tsc -p ./api && cp -r ./api/fonts ./dist/api/fonts",
+    "run:api": "node ./dist/api/index.js",
+    "api": "npm run compile:api && npm run run:api",
+    "dev:measure": "nodemon --watch 'measure/**' -e .ts --exec 'ts-node' --dir measure index.ts",
+    "measure": "tsc -p ./measure && node ./dist/measure/index.js",
+    "pretty": "prettier ./.prettierrc.json '**/*' --write --loglevel warn"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.23",
+    "@types/puppeteer": "^3.0.1",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "puppeteer": "^5.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "fastify": "^3.0.3",
+    "string-width": "^4.2.0"
+  }
+}
