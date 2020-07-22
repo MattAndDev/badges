@@ -73,6 +73,7 @@ export const shield = (
     const totalWidth = leftTextWidth + rightTextWidth + padIntHor * 4
     const totalHeight = fontSize * 1.4 + padIntVer * 2
     reply.header('Content-type', 'image/svg+xml')
+    reply.header('Cache-Control', 'no-cache')
     const svg = template({
       totalHeight,
       totalWidth,
