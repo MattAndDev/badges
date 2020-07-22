@@ -1,5 +1,5 @@
 # badges.matteo.land
 
-![Swag](https://badges.matteo.land/shield.svg?leftText=SO%20MUCH&rightText=SWAG&paddingVer=5&fontFamily=Arial "SWAG")
+![Swag](https://svgshare.com/i/N5J.svg "SWAG")
 
 because why not
