@@ -46,7 +46,7 @@ export const shield = (
   >,
   fonts: FontsMap
 ) => {
-  app.get<{
+  app.all<{
     Querystring: Query
   }>('/shield.svg', async (request, reply) => {
     const {
