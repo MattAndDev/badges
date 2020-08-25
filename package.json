@@ -1,7 +1,7 @@
 {
-  "name": "badgy",
+  "name": "sv-a-g",
   "version": "1.0.0",
-  "description": "",
+  "description": "Badges with swag",
   "main": "index.js",
   "scripts": {
     "dev:api": "nodemon --watch './api/**' -e .ts --exec 'ts-node' --dir api index.ts",
@@ -16,16 +16,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^14.0.23",
+    "@types/node": "^14.6.0",
     "@types/puppeteer": "^3.0.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
-    "puppeteer": "^5.1.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "puppeteer": "^5.2.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "dependencies": {
-    "fastify": "^3.0.3",
-    "string-width": "^4.2.0"
+    "fastify": "^3.2.1"
   }
 }
