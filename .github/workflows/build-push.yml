@@ -21,11 +21,11 @@ jobs:
         run: echo ${{ steps.buildx.outputs.platforms }}
       - name: Run Buildx
         run: |
-          docker buildx build -t mattanddev/badgy:${{ startsWith(github.ref, 'refs/tags/') }} ./ --platform linux/arm/v7 --push
+          docker buildx build -t mattanddev/badgy:${GITHUB_REF#refs/*/} ./ --platform linux/arm/v7
       - uses: actions/checkout@master
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: mattanddev/badgy:${{ startsWith(github.ref, 'refs/tags/') }}
+          name: mattanddev/badgy:${GITHUB_REF#refs/*/}
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
