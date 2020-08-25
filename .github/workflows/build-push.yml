@@ -21,10 +21,12 @@ jobs:
         id: tagName
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
-      - name: Run Buildx
-        run: |
-          docker buildx build -t mattanddev/badgy:${{ steps.tagName.outputs.tag }} ./ --platform linux/arm/v7
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-      - name: Push the tagged Docker image
-        run: docker push mattanddev/badgy:${{ steps.tagName.outputs.tag }}
+      - name: Run Buildx
+        run: |
+          docker buildx build \
+          -t mattanddev/badgy:${{ steps.tagName.outputs.tag }} \
+          ./
+          --platform linux/arm/v7 \
+          --output type=image,name=mattanddev/badgy:${{ steps.tagName.outputs.tag }},push=true \
