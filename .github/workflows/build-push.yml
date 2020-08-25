@@ -17,15 +17,17 @@ jobs:
         with:
           buildx-version: latest
           qemu-version: latest
+      - uses: olegtarasov/get-tag@v2
+        id: tagName
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
       - name: Run Buildx
         run: |
-          docker buildx build -t mattanddev/badgy:${GITHUB_REF#refs/*/} ./ --platform linux/arm/v7
+          docker buildx build -t mattanddev/badgy:${{ steps.tagName.outputs.tag }} ./ --platform linux/arm/v7
       - uses: actions/checkout@master
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: mattanddev/badgy:${GITHUB_REF#refs/*/}
+          name: mattanddev/badgy:${{ steps.tagName.outputs.tag }}
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
