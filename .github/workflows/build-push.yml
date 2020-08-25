@@ -24,10 +24,7 @@ jobs:
       - name: Run Buildx
         run: |
           docker buildx build -t mattanddev/badgy:${{ steps.tagName.outputs.tag }} ./ --platform linux/arm/v7
-      - uses: actions/checkout@master
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: mattanddev/badgy:${{ steps.tagName.outputs.tag }}
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Push the tagged Docker image
+        run: docker push mattanddev/badgy:${{ steps.tagName.outputs.tag }}
