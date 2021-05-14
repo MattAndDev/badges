@@ -1,0 +1,32 @@
+name: build-push
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
+      - uses: olegtarasov/get-tag@v2
+        id: tagName
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+      - name: Run Buildx
+        run: |
+          docker buildx build \
+          -t mattanddev/badgy:${{ steps.tagName.outputs.tag }} \
+          ./ \
+          --platform linux/arm/v7 \
+          --output type=image,name=mattanddev/badgy:${{ steps.tagName.outputs.tag }},push=true \

@@ -1,7 +1,7 @@
 {
-  "name": "badgy",
+  "name": "sv-a-g",
   "version": "1.0.0",
-  "description": "",
+  "description": "Badges with swag",
   "main": "index.js",
   "scripts": {
     "dev:api": "nodemon --watch './api/**' -e .ts --exec 'ts-node' --dir api index.ts",
