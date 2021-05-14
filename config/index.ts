@@ -2,7 +2,7 @@ export type FontSizes = [20]
 export const fontSizes: FontSizes = [20]
 
 export type FontFamily = {
-  name: string
+  name: 'Arial' | 'Red Rose' | 'Roboto'
   type: 'system' | 'google'
   weight: number
 }

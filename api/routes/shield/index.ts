@@ -66,6 +66,10 @@ export const shield = (
         name === decodeFontName(fontFamily) &&
         weight === parseInt(fontWeight, 10)
     )!
+    if (!font) {
+      reply.code(400)
+      reply.send(`Font family '${decodeFontName(fontFamily)}' with weight '${fontWeight}' is not supported`)
+    }
     const fontId = getFontId(font)
     const leftTextWidth = getWidth(leftText, fontSize, fontId, fonts)
     const rightTextWidth = getWidth(rightText, fontSize, fontId, fonts)
