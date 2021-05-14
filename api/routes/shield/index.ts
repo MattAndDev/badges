@@ -31,8 +31,8 @@ const DEFAULT_VALUES: Required<Query> = {
   borderRadius: '3',
   leftBgColor: '#18298C',
   rightBgColor: '#04BF8A',
-  leftTextColor: '#F2CF1D',
-  rightTextColor: '#222',
+  leftTextColor: '#FFF',
+  rightTextColor: '#FFF',
   fontFamily: 'Roboto',
   fontWeight: '400',
 }
@@ -70,6 +70,7 @@ export const shield = (
       reply.code(400)
       reply.send(`Font family '${decodeFontName(fontFamily)}' with weight '${fontWeight}' is not supported`)
     }
+    console.log(rest, request.query)
     const fontId = getFontId(font)
     const leftTextWidth = getWidth(leftText, fontSize, fontId, fonts)
     const rightTextWidth = getWidth(rightText, fontSize, fontId, fonts)
